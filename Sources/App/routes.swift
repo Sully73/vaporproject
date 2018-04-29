@@ -18,9 +18,8 @@ public func routes(_ router: Router) throws {
             })
     }
     
-    router.get("api", "acronyms") { req -> Future<[Acronym]> in
-        return Acronym.query(on: req).all()
-    }
+    let acronymsController = AcronymsController()
+    try router.register(collection: acronymsController)
     
     router.get("api", "acronyms", Acronym.parameter) { req -> Future<Acronym> in
         return try req.parameter(Acronym.self)
